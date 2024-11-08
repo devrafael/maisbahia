@@ -1,8 +1,8 @@
 package com.project.maisbahia.services;
 
 
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequest;
-import com.project.maisbahia.controllers.dtos.requests.UsuarioRequest;
+import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
+import com.project.maisbahia.controllers.dtos.requests.UsuarioRequestRecord;
 import com.project.maisbahia.entities.Perfil;
 import com.project.maisbahia.entities.Usuario;
 import com.project.maisbahia.repositories.PerfilRepository;
@@ -42,7 +42,7 @@ public class UsuarioService {
         return usuario.orElseThrow(() -> new ResourceNotFoundException("Usuario nao encontrado na base de dados! Id: " + id));
     }
 
-    public Optional<Usuario> buscarPorLogin(AutenticacaoRequest authRequest){
+    public Optional<Usuario> buscarPorLogin(AutenticacaoRequestRecord authRequest){
         var usuario = usuarioRepository.findByLogin(authRequest.login());
 
         if (usuario.isEmpty() || !(usuario.get().LoginCorreto(authRequest, passwordEncoder))) {
@@ -58,40 +58,40 @@ public class UsuarioService {
         usuarioRepository.delete(u);
     }
 
-    public Usuario criarUsuarioAdmin(UsuarioRequest usuarioRequest) {
-        Optional<Usuario> usuarioJaExiste = usuarioRepository.findByLogin(usuarioRequest.login());
+    public Usuario criarUsuarioAdmin(UsuarioRequestRecord usuarioRequestRecord) {
+        Optional<Usuario> usuarioJaExiste = usuarioRepository.findByLogin(usuarioRequestRecord.login());
 
         if (usuarioJaExiste.isPresent()) {
             throw new DataIntegrityViolationException("Já existe um usuário com essas credenciais!");
         }
 
-        var senhaHash = passwordEncoder.encode(usuarioRequest.senha());
+        var senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
         var roleUser = perfilRepository.findByNome(Perfil.Values.GERENTE.name());
 
         Usuario u = new Usuario();
-        u.setLogin(usuarioRequest.login());
+        u.setLogin(usuarioRequestRecord.login());
         u.setSenha(senhaHash);
-        u.setNome(usuarioRequest.nome());
+        u.setNome(usuarioRequestRecord.nome());
         u.setPerfis(Set.of(roleUser));
         return usuarioRepository.save(u);
     }
 
-    public Usuario atualizarUsuario(UsuarioRequest usuarioRequest, UUID id) {
+    public Usuario atualizarUsuario(UsuarioRequestRecord usuarioRequestRecord, UUID id) {
         Usuario usuarioAtualizado = buscarUsuario(id);
         var senhaHash = "";
 
-        if(usuarioRequest.nome() == "" || usuarioRequest.senha() == ""){
+        if(usuarioRequestRecord.nome() == "" || usuarioRequestRecord.senha() == ""){
             throw new EmptyCredentialsException("Não foi possivel atualizar, pois alguma credencial pode estar vazia!");
-        } else if (usuarioRequest.nome() == null && usuarioRequest.senha() != null) {
-            senhaHash = passwordEncoder.encode(usuarioRequest.senha());
+        } else if (usuarioRequestRecord.nome() == null && usuarioRequestRecord.senha() != null) {
+            senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
             usuarioAtualizado.setNome(usuarioAtualizado.getNome());
             usuarioAtualizado.setSenha(senhaHash);
-        } else if (usuarioRequest.nome() != null && usuarioRequest.senha() == null) {
+        } else if (usuarioRequestRecord.nome() != null && usuarioRequestRecord.senha() == null) {
             usuarioAtualizado.setSenha(usuarioAtualizado.getSenha());
-            usuarioAtualizado.setNome(usuarioRequest.nome());
-        } else if (usuarioRequest.nome() != null) {
-            senhaHash = passwordEncoder.encode(usuarioRequest.senha());
-            usuarioAtualizado.setNome(usuarioRequest.nome());
+            usuarioAtualizado.setNome(usuarioRequestRecord.nome());
+        } else if (usuarioRequestRecord.nome() != null) {
+            senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
+            usuarioAtualizado.setNome(usuarioRequestRecord.nome());
             usuarioAtualizado.setSenha(senhaHash);
         }
 

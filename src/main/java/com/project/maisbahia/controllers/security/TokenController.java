@@ -1,7 +1,7 @@
 package com.project.maisbahia.controllers.security;
 
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequest;
-import com.project.maisbahia.controllers.dtos.responses.AutenticacaoResponse;
+import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
+import com.project.maisbahia.controllers.dtos.responses.AutenticacaoResponseRecord;
 import com.project.maisbahia.entities.Usuario;
 import com.project.maisbahia.services.UsuarioService;
 import com.project.maisbahia.services.security.TokenService;
@@ -34,7 +34,7 @@ public class TokenController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AutenticacaoResponse> auth(@RequestBody AutenticacaoRequest authRequest){
+    public ResponseEntity<AutenticacaoResponseRecord> auth(@RequestBody AutenticacaoRequestRecord authRequest){
 
         var x =  tokenService.getToken(authRequest);
 
@@ -45,7 +45,7 @@ public class TokenController {
 
         tokenService.saveToken(jwtValue, u.get().getId());
         
-        return ResponseEntity.ok().body(new AutenticacaoResponse(jwtValue, tokenService.getDateExpirationToken()));
+        return ResponseEntity.ok().body(new AutenticacaoResponseRecord(jwtValue, tokenService.getDateExpirationToken()));
     }
 
     @PostMapping("/logout")

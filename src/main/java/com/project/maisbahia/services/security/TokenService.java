@@ -2,7 +2,7 @@ package com.project.maisbahia.services.security;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
 
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequest;
+import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
 import com.project.maisbahia.entities.Perfil;
 import com.project.maisbahia.entities.Token;
 import com.project.maisbahia.entities.Usuario;
@@ -30,7 +30,7 @@ public class TokenService {
     private TokenRepository tokenRepository;
 
 
-    public JwtClaimsSet getToken(AutenticacaoRequest authRequest) {
+    public JwtClaimsSet getToken(AutenticacaoRequestRecord authRequest) {
         Optional<Usuario> usuario = usuarioService.buscarPorLogin(authRequest);
 
         return createToken(usuario.orElse(null));

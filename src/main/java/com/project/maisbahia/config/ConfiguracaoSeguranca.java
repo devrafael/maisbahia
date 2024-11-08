@@ -73,8 +73,8 @@ public class ConfiguracaoSeguranca {
     }
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-    return new JwtAuthenticationFilter();
+    public FiltroAutenticacaoJwt jwtAuthenticationFilter() {
+    return new FiltroAutenticacaoJwt();
     }
 
 

@@ -3,8 +3,7 @@ package com.project.maisbahia.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequest;
-import com.project.maisbahia.entities.enums.CargoEnum;
+import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,7 +48,7 @@ public class Usuario {
     @Column(name = "cargo")
     private String cargo;
 
-    public boolean LoginCorreto(AutenticacaoRequest authRequest, BCryptPasswordEncoder passwordEncoder) {
+    public boolean LoginCorreto(AutenticacaoRequestRecord authRequest, BCryptPasswordEncoder passwordEncoder) {
        return passwordEncoder.matches(authRequest.senha(), this.senha);
     }
 }

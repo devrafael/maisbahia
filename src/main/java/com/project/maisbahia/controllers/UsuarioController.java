@@ -1,7 +1,7 @@
 package com.project.maisbahia.controllers;
 
-import com.project.maisbahia.controllers.dtos.requests.UsuarioRequest;
-import com.project.maisbahia.controllers.dtos.responses.UsuarioResponse;
+import com.project.maisbahia.controllers.dtos.requests.UsuarioRequestRecord;
+import com.project.maisbahia.controllers.dtos.responses.UsuarioResponseRecord;
 import com.project.maisbahia.entities.Usuario;
 import com.project.maisbahia.services.UsuarioService;
 import jakarta.transaction.Transactional;
@@ -26,21 +26,21 @@ public class UsuarioController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
-    public ResponseEntity<List<UsuarioResponse>> buscarTodosUsuarios(){
+    public ResponseEntity<List<UsuarioResponseRecord>> buscarTodosUsuarios(){
         List<Usuario> listaUsuarios = usuarioService.buscarUsuarios();
-        List<UsuarioResponse> listaUsuarioResponses = new ArrayList<>();
+        List<UsuarioResponseRecord> listaUsuarioResponsRecords = new ArrayList<>();
 
         for (Usuario usuario : listaUsuarios) {
-            listaUsuarioResponses.add(new UsuarioResponse(usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getPerfis()));
+            listaUsuarioResponsRecords.add(new UsuarioResponseRecord(usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getPerfis()));
         }
 
-        return ResponseEntity.ok().body(listaUsuarioResponses);
+        return ResponseEntity.ok().body(listaUsuarioResponsRecords);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> buscarUsuarioPorId(@PathVariable UUID id){
+    public ResponseEntity<UsuarioResponseRecord> buscarUsuarioPorId(@PathVariable UUID id){
         Usuario usuario = usuarioService.buscarUsuario(id);
-        return ResponseEntity.ok().body(new UsuarioResponse(usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getPerfis()));
+        return ResponseEntity.ok().body(new UsuarioResponseRecord(usuario.getId(), usuario.getNome(), usuario.getLogin(), usuario.getPerfis()));
     }
 
     @DeleteMapping("/{id}")
@@ -54,8 +54,8 @@ public class UsuarioController {
     @PostMapping("/admin")
     @Transactional
     @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
-    public ResponseEntity<Void> criarUsuarioAdmin(@RequestBody UsuarioRequest usuarioRequest){
-        Usuario novoUsuario = usuarioService.criarUsuarioAdmin(usuarioRequest);
+    public ResponseEntity<Void> criarUsuarioAdmin(@RequestBody UsuarioRequestRecord usuarioRequestRecord){
+        Usuario novoUsuario = usuarioService.criarUsuarioAdmin(usuarioRequestRecord);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(novoUsuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -63,8 +63,8 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
-    public ResponseEntity<Void> atualizarUsuario(@RequestBody UsuarioRequest usuarioRequest, @PathVariable UUID id){
-        usuarioService.atualizarUsuario(usuarioRequest, id);
+    public ResponseEntity<Void> atualizarUsuario(@RequestBody UsuarioRequestRecord usuarioRequestRecord, @PathVariable UUID id){
+        usuarioService.atualizarUsuario(usuarioRequestRecord, id);
         return ResponseEntity.noContent().build();
     }
 
