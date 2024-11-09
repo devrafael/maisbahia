@@ -1,4 +1,4 @@
-package com.project.maisbahia.entities;
+package com.project.maisbahia.entities.usuarios;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,7 +48,7 @@ public class Usuario {
     @Column(name = "cargo")
     private String cargo;
 
-    public boolean LoginCorreto(AutenticacaoRequestRecord authRequest, BCryptPasswordEncoder passwordEncoder) {
+    public boolean loginCorreto(AutenticacaoRequestRecord authRequest, BCryptPasswordEncoder passwordEncoder) {
        return passwordEncoder.matches(authRequest.senha(), this.senha);
     }
 }

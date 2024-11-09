@@ -3,14 +3,14 @@ package com.project.maisbahia.services.security;
 import com.auth0.jwt.exceptions.JWTCreationException;
 
 import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
-import com.project.maisbahia.entities.Perfil;
-import com.project.maisbahia.entities.Token;
-import com.project.maisbahia.entities.Usuario;
+import com.project.maisbahia.entities.usuarios.Perfil;
+import com.project.maisbahia.entities.seguranca.Token;
+import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.repositories.TokenRepository;
 import com.project.maisbahia.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -53,7 +53,7 @@ public class TokenService {
                     .build();
 
         }catch (JWTCreationException e){
-            throw new RuntimeException("Erro ao tentar gerar o token! " + e.getMessage());
+            throw new JwtException("Erro ao tentar gerar o token! " + e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class TokenService {
     public void saveToken(String token, UUID userId) {
         Instant expiration = getDateExpirationToken();
         Token tokenNovo = new Token();
-        tokenNovo.setToken(token.toString());
+        tokenNovo.setToken(token);
         tokenNovo.setUserId(userId);
         tokenNovo.setExpiration(expiration);
         tokenNovo.setRevoked(false);
@@ -78,31 +78,25 @@ public class TokenService {
 
     public void revokeToken(String token) {
         Optional<Token> userToken = tokenRepository.findByToken(token);
-        System.out.println("TOKEN ENCONTRADO: " + userToken);
         userToken.ifPresent(tokenParaRevogacao -> {
-            
             tokenParaRevogacao.setRevoked(true);
-            System.out.println("token revogado!!!!!!!!!");
-            System.out.println(tokenParaRevogacao.isRevoked());
             tokenRepository.save(tokenParaRevogacao);
         });
     }
 
     public boolean isTokenValid(String token) {
-        // Busca o token no banco de dados
         Optional<Token> optionalToken = tokenRepository.findByToken(token);
         
         if (optionalToken.isPresent()) {
             Token storedToken = optionalToken.get();
-            // Verifica se o token foi nao foi revogado ou expirado
             return !storedToken.isRevoked() && !isTokenExpired(storedToken.getExpiration());
         }
-        return false; // Token não encontrado ou inválido
+        return false;
     }
 
  
     public boolean isTokenExpired(Instant expiration) {
-        return expiration.isBefore(Instant.now()); // Retorna true se o token já expirou
+        return expiration.isBefore(Instant.now());
     }
     
 }

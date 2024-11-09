@@ -1,4 +1,4 @@
-package com.project.maisbahia.entities;
+package com.project.maisbahia.entities.usuarios;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

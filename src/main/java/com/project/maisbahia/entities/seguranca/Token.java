@@ -1,4 +1,4 @@
-package com.project.maisbahia.entities;
+package com.project.maisbahia.entities.seguranca;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -1,6 +1,6 @@
 package com.project.maisbahia.repositories;
 
-import com.project.maisbahia.entities.Usuario;
+import com.project.maisbahia.entities.usuarios.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

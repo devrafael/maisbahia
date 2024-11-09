@@ -1,11 +1,12 @@
 package com.project.maisbahia.config;
 
-import com.project.maisbahia.entities.Perfil;
-import com.project.maisbahia.entities.Usuario;
+import com.project.maisbahia.entities.usuarios.Perfil;
+import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.entities.enums.CargoEnum;
 import com.project.maisbahia.repositories.PerfilRepository;
 import com.project.maisbahia.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 
 @Configuration
+@Slf4j
 public class ConfigUsuarioAdmin implements CommandLineRunner {
 
     @Autowired
@@ -29,17 +31,10 @@ public class ConfigUsuarioAdmin implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         var roleAdmin = perfilRepositoryitory.findByNome(Perfil.Values.GERENTE.name());
-        if (roleAdmin == null) {
-            System.out.println("Perfil ADMIN não encontrado!");
-            return;
-        }
-
         var usuarioAdmin = usuarioRepository.findByLogin("admin@gmail.com");
 
         usuarioAdmin.ifPresentOrElse(
-                (usuario) -> {
-                    System.out.println("admin ja existe!");
-                },
+                usuario -> log.info("admin ja existe!"),
                 () -> {
                     var usuario = new Usuario();
                     usuario.setNome("rafael");

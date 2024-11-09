@@ -1,12 +1,14 @@
 package com.project.maisbahia.controllers.exceptions;
 
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.project.maisbahia.services.exceptions.EmptyCredentialsException;
 import com.project.maisbahia.services.exceptions.IncorrectCredentialsException;
 import com.project.maisbahia.services.exceptions.ResourceNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -86,7 +88,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(pb);
     }
 
-
+    @ExceptionHandler(JwtException.class)
+    protected ResponseEntity<Object> handleJwtException(JwtException ex) {
+        ProblemDetail pb = ProblemDetail.forStatus(HttpStatus.UNAUTHORIZED);
+        pb.setDetail(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(pb);
+    }
 
 
 

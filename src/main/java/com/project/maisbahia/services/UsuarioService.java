@@ -3,8 +3,8 @@ package com.project.maisbahia.services;
 
 import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
 import com.project.maisbahia.controllers.dtos.requests.UsuarioRequestRecord;
-import com.project.maisbahia.entities.Perfil;
-import com.project.maisbahia.entities.Usuario;
+import com.project.maisbahia.entities.usuarios.Perfil;
+import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.repositories.PerfilRepository;
 import com.project.maisbahia.repositories.UsuarioRepository;
 import com.project.maisbahia.services.exceptions.EmptyCredentialsException;
@@ -33,8 +33,7 @@ public class UsuarioService {
     private BCryptPasswordEncoder passwordEncoder;
 
     public List<Usuario> buscarUsuarios() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        return usuarios;
+        return usuarioRepository.findAll();
     }
 
     public Usuario buscarUsuario(UUID id) {
@@ -45,7 +44,7 @@ public class UsuarioService {
     public Optional<Usuario> buscarPorLogin(AutenticacaoRequestRecord authRequest){
         var usuario = usuarioRepository.findByLogin(authRequest.login());
 
-        if (usuario.isEmpty() || !(usuario.get().LoginCorreto(authRequest, passwordEncoder))) {
+        if (usuario.isEmpty() || !(usuario.get().loginCorreto(authRequest, passwordEncoder))) {
             throw new IncorrectCredentialsException("Credenciais incorretas! Favor verificar os dados de login.");
         }
         return usuario;
@@ -80,7 +79,7 @@ public class UsuarioService {
         Usuario usuarioAtualizado = buscarUsuario(id);
         var senhaHash = "";
 
-        if(usuarioRequestRecord.nome() == "" || usuarioRequestRecord.senha() == ""){
+        if(usuarioRequestRecord.nome().equals("") || usuarioRequestRecord.senha().equals("")){
             throw new EmptyCredentialsException("Não foi possivel atualizar, pois alguma credencial pode estar vazia!");
         } else if (usuarioRequestRecord.nome() == null && usuarioRequestRecord.senha() != null) {
             senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());

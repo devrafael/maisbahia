@@ -2,7 +2,7 @@ package com.project.maisbahia.controllers.security;
 
 import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
 import com.project.maisbahia.controllers.dtos.responses.AutenticacaoResponseRecord;
-import com.project.maisbahia.entities.Usuario;
+import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.services.UsuarioService;
 import com.project.maisbahia.services.security.TokenService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://127.0.0.1:5500", allowCredentials = "true")
+@Slf4j
 public class TokenController {
 
     @Autowired
@@ -50,14 +52,11 @@ public class TokenController {
 
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestBody Map<String, String> request, HttpServletResponse response) {
-        String token = request.get("token"); // Obtendo o token do objeto JSON
-        System.out.println("TOKEN RECEBIDO: " + token);
-        
-        // Verifica se o token não está vazio antes de revogar
+        String token = request.get("token");
         if (token != null && !token.isEmpty()) {
             tokenService.revokeToken(token);
         } else {
-            System.out.println("TOKEN ESTÁ VAZIO!");
+            log.info("Token vazio!");
         }
         
         return ResponseEntity.noContent().build();
