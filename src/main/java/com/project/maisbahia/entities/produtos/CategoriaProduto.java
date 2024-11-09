@@ -20,13 +20,14 @@ public class CategoriaProduto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCategoria;
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id_produto")
-    private Produto produto;
-
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CategoriaProdutoEnum categoria;
+    @Column(nullable = false, name = "categoria_nome")
+    private CategoriaProdutoEnum categoriaEnum;
+
+    public CategoriaProduto(String nomeCategoria) {
+        this.categoriaEnum = CategoriaProdutoEnum.valueOf(nomeCategoria);
+    }
+
 
 }
 

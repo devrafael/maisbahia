@@ -84,7 +84,7 @@ public class ProdutoService
         return new ProdutoResponseRecord(
                 produto.getIdProduto(),
                 produto.getNomeProduto(),
-                produto.getCategoria(),
+                produto.getCategoria().getCategoriaEnum(),
                 produto.getQuantidade(),
                 produto.getLote(),
                 produto.getDataValidade(),

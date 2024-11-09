@@ -18,8 +18,9 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID idProduto;
 
-    @Enumerated(EnumType.STRING)
-    private CategoriaProdutoEnum categoria;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "categoria_nome")
+    private CategoriaProduto categoria;
 
     private Integer quantidade;
     private String lote;
