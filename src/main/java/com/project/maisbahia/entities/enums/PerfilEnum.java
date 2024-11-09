@@ -1,9 +1,10 @@
 package com.project.maisbahia.entities.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.Getter;
 
 @Getter
-public enum CargoEnum {
+public enum PerfilEnum {
     GERENTE(1L, "Gerente"),
     ASSISTENTE_LOG(2L, "Assistente de Logistica"),
     COORDENADOR_LOG(3L, "Coordenador de Logistica"),;
@@ -11,7 +12,7 @@ public enum CargoEnum {
     private final Long id;
     private final String nomeCargo;
 
-    CargoEnum(Long id, String nomeCargo) {
+    PerfilEnum(Long id, String nomeCargo) {
         this.id = id;
         this.nomeCargo = nomeCargo;
     }

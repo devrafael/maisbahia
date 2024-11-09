@@ -1,8 +1,7 @@
 package com.project.maisbahia.config;
 
-import com.project.maisbahia.entities.usuarios.Perfil;
 import com.project.maisbahia.entities.usuarios.Usuario;
-import com.project.maisbahia.entities.enums.CargoEnum;
+import com.project.maisbahia.entities.enums.PerfilEnum;
 import com.project.maisbahia.repositories.PerfilRepository;
 import com.project.maisbahia.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -24,13 +23,13 @@ public class ConfigUsuarioAdmin implements CommandLineRunner {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
-    private PerfilRepository perfilRepositoryitory;
+    private PerfilRepository perfilRepository;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
 
-        var roleAdmin = perfilRepositoryitory.findByNome(Perfil.Values.GERENTE.name());
+        var roleAdmin = perfilRepository.findByNome(PerfilEnum.GERENTE);
         var usuarioAdmin = usuarioRepository.findByLogin("admin@gmail.com");
 
         usuarioAdmin.ifPresentOrElse(
@@ -40,8 +39,8 @@ public class ConfigUsuarioAdmin implements CommandLineRunner {
                     usuario.setNome("rafael");
                     usuario.setLogin("admin@gmail.com");
                     usuario.setSenha(passwordEncoder.encode("123"));
-                    usuario.setPerfis(Set.of(roleAdmin));
-                    usuario.setCargo(CargoEnum.GERENTE.getNomeCargo());
+                    usuario.setPerfis(roleAdmin);
+                    usuario.setCargo(PerfilEnum.GERENTE.getNomeCargo());
                     usuarioRepository.save(usuario);
                 }
         );

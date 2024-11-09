@@ -24,8 +24,10 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+
+
     @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    //@PreAuthorize("hasAuthority('SCOPE_GERENTE')")
     public ResponseEntity<List<UsuarioResponseRecord>> buscarTodosUsuarios(){
         List<Usuario> listaUsuarios = usuarioService.buscarUsuarios();
         List<UsuarioResponseRecord> listaUsuarioResponsRecords = new ArrayList<>();
@@ -44,7 +46,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<Void> deletarUsuario(@PathVariable UUID id){
         Usuario usuario = usuarioService.buscarUsuario(id);
         usuarioService.deletarUsuario(usuario.getId());
@@ -53,8 +55,9 @@ public class UsuarioController {
 
     @PostMapping("/admin")
     @Transactional
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<Void> criarUsuarioAdmin(@RequestBody UsuarioRequestRecord usuarioRequestRecord){
+
         Usuario novoUsuario = usuarioService.criarUsuarioAdmin(usuarioRequestRecord);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(novoUsuario.getId()).toUri();
@@ -62,9 +65,9 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<Void> atualizarUsuario(@RequestBody UsuarioRequestRecord usuarioRequestRecord, @PathVariable UUID id){
-        usuarioService.atualizarUsuario(usuarioRequestRecord, id);
+        usuarioService.atualizarSenha(usuarioRequestRecord, id);
         return ResponseEntity.noContent().build();
     }
 

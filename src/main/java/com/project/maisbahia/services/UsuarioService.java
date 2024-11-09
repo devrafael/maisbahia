@@ -59,44 +59,37 @@ public class UsuarioService {
 
     public Usuario criarUsuarioAdmin(UsuarioRequestRecord usuarioRequestRecord) {
         Optional<Usuario> usuarioJaExiste = usuarioRepository.findByLogin(usuarioRequestRecord.login());
-
         if (usuarioJaExiste.isPresent()) {
             throw new DataIntegrityViolationException("Já existe um usuário com essas credenciais!");
         }
 
         var senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
-        var roleUser = perfilRepository.findByNome(Perfil.Values.GERENTE.name());
-
+        Set<Perfil> perfil = perfilRepository.findByNome(usuarioRequestRecord.perfilEnum());
+        System.out.println(perfil);
         Usuario u = new Usuario();
         u.setLogin(usuarioRequestRecord.login());
         u.setSenha(senhaHash);
         u.setNome(usuarioRequestRecord.nome());
-        u.setPerfis(Set.of(roleUser));
+        u.setPerfis(perfil);
+
+        u.setCargo(perfil.iterator().next().getNome().getNomeCargo());
+
         return usuarioRepository.save(u);
     }
 
-    public Usuario atualizarUsuario(UsuarioRequestRecord usuarioRequestRecord, UUID id) {
+    public Usuario atualizarSenha(UsuarioRequestRecord usuarioRequestRecord, UUID id) {
         Usuario usuarioAtualizado = buscarUsuario(id);
-        var senhaHash = "";
 
-        if(usuarioRequestRecord.nome().equals("") || usuarioRequestRecord.senha().equals("")){
-            throw new EmptyCredentialsException("Não foi possivel atualizar, pois alguma credencial pode estar vazia!");
-        } else if (usuarioRequestRecord.nome() == null && usuarioRequestRecord.senha() != null) {
-            senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
-            usuarioAtualizado.setNome(usuarioAtualizado.getNome());
-            usuarioAtualizado.setSenha(senhaHash);
-        } else if (usuarioRequestRecord.nome() != null && usuarioRequestRecord.senha() == null) {
-            usuarioAtualizado.setSenha(usuarioAtualizado.getSenha());
-            usuarioAtualizado.setNome(usuarioRequestRecord.nome());
-        } else if (usuarioRequestRecord.nome() != null) {
-            senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
-            usuarioAtualizado.setNome(usuarioRequestRecord.nome());
-            usuarioAtualizado.setSenha(senhaHash);
+        if (usuarioRequestRecord.senha() == null || usuarioRequestRecord.senha().equals("")) {
+            throw new EmptyCredentialsException("Não foi possível atualizar, pois a senha está vazia!");
         }
 
+        var senhaHash = passwordEncoder.encode(usuarioRequestRecord.senha());
+        usuarioAtualizado.setSenha(senhaHash);
         usuarioRepository.save(usuarioAtualizado);
         return usuarioAtualizado;
     }
+
 
 
 

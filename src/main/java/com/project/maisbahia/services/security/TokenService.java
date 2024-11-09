@@ -41,8 +41,8 @@ public class TokenService {
         try {
             var scopes = usuario.getPerfis()
                     .stream()
-                    .map(Perfil::getNome)
-                    .collect(Collectors.joining(" "));
+                    .map(perfil -> perfil.getNome().getNomeCargo()) // Acessa o nomeCargo da enum
+                    .collect(Collectors.toList());
 
             return JwtClaimsSet.builder()
                     .issuer("project-api")

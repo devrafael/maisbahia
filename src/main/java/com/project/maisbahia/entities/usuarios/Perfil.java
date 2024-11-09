@@ -1,6 +1,7 @@
 package com.project.maisbahia.entities.usuarios;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.maisbahia.entities.enums.PerfilEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,21 +25,11 @@ public class Perfil {
     private Long idPerfil;
 
     @Column(name = "nome")
-    private String nome;
+    @Enumerated(EnumType.STRING)
+    private PerfilEnum nome;
 
     @ManyToMany(mappedBy = "perfis")
     @JsonIgnore
     private Set<Usuario> usuarios;
 
-
-    @Getter
-    public enum Values{
-        GERENTE(1L);
-
-        long idPerfil;
-
-        Values(long idPerfil){
-            this.idPerfil = idPerfil;
-        }
-    }
 }

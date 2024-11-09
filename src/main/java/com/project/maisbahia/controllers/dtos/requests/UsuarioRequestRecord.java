@@ -1,4 +1,6 @@
 package com.project.maisbahia.controllers.dtos.requests;
 
-public record UsuarioRequestRecord(String nome, String senha, String login){
+import com.project.maisbahia.entities.enums.PerfilEnum;
+
+public record UsuarioRequestRecord(String nome, String senha, String login, PerfilEnum perfilEnum){
 }

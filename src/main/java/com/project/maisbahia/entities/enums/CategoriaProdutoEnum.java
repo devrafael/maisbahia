@@ -9,7 +9,9 @@ public enum CategoriaProdutoEnum
     GRAOS(2L, "GRAOS"),
     HIGIENE_PESSOAL(3L, "HIGIENE_PESSOAL"),
     LIMPEZA(4L, "LIMPEZA"),
-    ACOUGUE(5L, "ACOUGUE"),;
+    ACOUGUE(5L, "ACOUGUE"),
+    FRUTAS(6L, "FRUTAS"),
+    LEGUMES(7L, "LEGUMES");
 
     private final Long id;
     private final String nomeCategoria;

@@ -1,6 +1,5 @@
 package com.project.maisbahia.controllers.dtos.requests;
 
-import com.project.maisbahia.entities.enums.CategoriaProdutoEnum;
 import com.project.maisbahia.entities.produtos.CategoriaProduto;
 
 import java.time.LocalDate;
