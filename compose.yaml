@@ -12,7 +12,7 @@ services:
     ports:
       - '5432:5432'
   springboot-app:
-    image: 'devrafael9137/maisbahia:v1'
+    image: 'devrafael9137/maisbahia:1.0'
     ports:
       - '8080:8080'
     environment:
