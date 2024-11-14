@@ -1,10 +1,25 @@
+version: '3.8'
+
 services:
-  mysql:
-    image: 'mysql:latest'
+  postgres:
+    image: 'postgres:latest'
     environment:
-      - 'MYSQL_DATABASE=courses'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_DB=maisbahia'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - '3307:3306'
+      - '5432:5432'
+  springboot-app:
+    image: 'devrafael9137/maisbahia:v1'
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/maisbahia
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - postgres
+volumes:
+  postgres_data:

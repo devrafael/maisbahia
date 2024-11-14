@@ -21,7 +21,7 @@ public class ProdutoController
     private ProdutoService produtoService;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<ProdutoResponseRecord> criarProduto(@RequestBody ProdutoRequestRecord request)
     {
         ProdutoResponseRecord response = produtoService.criarProduto(request);
@@ -54,7 +54,7 @@ public class ProdutoController
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<ProdutoResponseRecord> atualizarProduto (@PathVariable UUID id, @RequestBody ProdutoRequestRecord request)
     {
         ProdutoResponseRecord response = produtoService.atualizarProduto(id, request);
@@ -62,7 +62,7 @@ public class ProdutoController
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    @PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<Void> deletarProduto (@PathVariable UUID id)
     {
         produtoService.exluirProduto(id);

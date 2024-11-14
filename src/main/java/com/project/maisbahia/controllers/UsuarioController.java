@@ -24,8 +24,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-
-
     @GetMapping("/admin")
     //@PreAuthorize("hasAuthority('SCOPE_GERENTE')")
     public ResponseEntity<List<UsuarioResponseRecord>> buscarTodosUsuarios(){

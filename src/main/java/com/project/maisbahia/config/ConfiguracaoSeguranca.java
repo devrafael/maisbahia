@@ -44,7 +44,6 @@ public class ConfiguracaoSeguranca {
                 .authorizeHttpRequests(authorize ->
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/tarefas/admin").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth").permitAll()
                                 .anyRequest().authenticated()
                 )

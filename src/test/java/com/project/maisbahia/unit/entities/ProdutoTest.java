@@ -21,10 +21,7 @@ class ProdutoTest
     @BeforeEach
     void setUp()
     {
-        // Criar uma categoria de exemplo
         categoriaProduto = new CategoriaProduto(1, CategoriaProdutoEnum.MASSA);
-
-        // Criar um produto de exemplo
         produto = new Produto();
         produto.setIdProduto(UUID.randomUUID());
         produto.setNomeProduto("Macarrão");
@@ -63,7 +60,6 @@ class ProdutoTest
     @Test
     void testProdutoComQuantidadeNegativa()
     {
-        // Testar um produto com quantidade negativa
         produto.setQuantidade(-5);
         assertTrue(produto.getQuantidade() < 0, "A quantidade do produto deveria ser negativa.");
     }
@@ -71,7 +67,6 @@ class ProdutoTest
     @Test
     void testProdutoAtualizacaoDados()
      {
-        // Atualizar dados do produto e verificar se as mudanças foram aplicadas
         produto.setNomeProduto("Macarrão Integral");
         produto.setQuantidade(50);
         produto.setFabricante("Nova Fábrica de Massas");
@@ -83,7 +78,6 @@ class ProdutoTest
 
     @Test
     void testProdutoComLoteDuplicado() {
-        // Criar outro produto com o mesmo valor de lote para simular duplicidade
         Produto outroProduto = new Produto();
         outroProduto.setIdProduto(UUID.randomUUID());
         outroProduto.setNomeProduto("Espaguete");
@@ -102,22 +96,18 @@ class ProdutoTest
 
     @Test
     void testProdutoComDataFabricacaoPosteriorDataValidade() {
-        // Configurar a data de fabricação após a data de validade
         produto.setDataFabricacao(LocalDate.now().plusDays(1));
         produto.setDataValidade(LocalDate.now());
 
-        // Verificar se a data de fabricação é posterior à data de validade
         assertTrue(produto.getDataFabricacao().isAfter(produto.getDataValidade()),
                 "A data de fabricação não deveria ser posterior à data de validade.");
 
-        // Adicionar lógica para verificar se uma exceção é lançada em caso de erro
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             if (produto.getDataFabricacao().isAfter(produto.getDataValidade())) {
                 throw new IllegalArgumentException("A data de fabricação não pode ser posterior à data de validade.");
             }
         });
 
-        // Verificar a mensagem da exceção
         assertEquals("A data de fabricação não pode ser posterior à data de validade.", exception.getMessage(),
                 "A mensagem de erro deveria ser 'A data de fabricação não pode ser posterior à data de validade.'");
     }
