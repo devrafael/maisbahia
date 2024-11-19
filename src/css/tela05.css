@@ -1,0 +1,81 @@
+body {
+  background-image: url(../img/background-inicio.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Poppins", serif;
+}
+
+.titulo h1 {
+  text-align: center;
+  color: #4F359B;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 1%;
+}
+
+.menu-lateral {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  width: 210px;
+  background-color: #4F359B;
+  border: 1px solid #4F359B;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  
+}
+
+.menu-lateral h2 {
+  margin-top: 15%;
+  margin-bottom: 10%;
+  font-size: 30px;
+  text-align: center;
+  padding: 15px 0;
+  background-color: #4F359B;
+  color: white;
+  border-radius: 8px 8px 0 0;
+  font-family: "Poppins", serif;
+}
+
+.menu-lateral h2 .mais {
+  font-weight: 20;
+}
+
+.menu-lateral h2 .bahia {
+  font-weight: 700;
+}
+
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #ffffff;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 100;
+}
+
+.menu-item:hover {
+  background-color: #2E2E48;
+}
+
+.menu-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10%;
+  margin-left: 13%;
+}
+
+.menu-item a {
+  flex-grow: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.menu-lateral nav {
+  padding-bottom: 25%;
+}
