@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://127.0.0.1:5500", allowCredentials = "true")
 @Slf4j
+
 public class TokenController {
 
     @Autowired
@@ -30,7 +30,6 @@ public class TokenController {
     @Autowired
     private TokenService tokenService;
 
-    
     @Autowired
     private UsuarioService usuarioService;
 
@@ -61,11 +60,5 @@ public class TokenController {
         
         return ResponseEntity.noContent().build();
     }
-    
-    
-    
-    
-
-
 
 }

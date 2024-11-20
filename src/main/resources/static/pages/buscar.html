@@ -10,28 +10,31 @@
   <!-- Arquivo CSS externo -->
   <link rel="stylesheet" href="../css/tela06.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="../js/menu.js" defer></script>
+  <script src="../js/buscarProdutos.js" defer></script>
+
 </head>
 
 <body>
 
   <div class="menu-flutuante">
     <h2>Buscar Produto</h2>
-    <input type="text" class="form-control" placeholder="Digite o nome do produto">
-    <button class="btn btn-primary btn-block mt-3">BUSCAR</button>
+    <input type="text" class="form-control" placeholder="Digite o nome do produto" id="inputProduto">
+    <button class="btn btn-primary btn-block mt-3" id="btnBuscar">BUSCAR</button>
   </div>
 
   <div class="menu-lateral">
     <h2><span class="mais">MAIS</span><span class="bahia">BAHIA</span></h2>
     <nav>
-      <div class="menu-item">
+      <div class="menu-item" id="inicio">
         <img src="../img/icons8-página-inicial-48.png" alt="Ícone Início">
         <a href="#">Início</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" id="buscar">
         <img src="../img/icons8-pesquisar-mais-24.png" alt="Ícone Buscar">
         <a href="#">Buscar</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" id="cadastrar">
         <img src="../img/icons8-cadastro-32.png" alt="Ícone Cadastrar">
         <a href="#">Cadastrar</a>
       </div>

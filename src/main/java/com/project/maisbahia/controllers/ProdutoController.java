@@ -34,16 +34,17 @@ public class ProdutoController
         return ResponseEntity.ok(produtos);
     }
 
-    public ResponseEntity<List<ProdutoResponseRecord>> buscarProdutoPorNome(@RequestParam(required = false) String filtro){
-        List<ProdutoResponseRecord> produtos = produtoService.buscarProdutoNome(filtro);
-        if(filtro != null || !filtro.isEmpty()){
-            String filtroProduto = filtro.toLowerCase();
-            produtos = produtos.stream()
-                    .filter(produto -> produto.nomeProduto().toLowerCase().contains(filtroProduto))
-                    .toList();
-        }
-        return ResponseEntity.ok(produtos);
-    }
+//    @GetMapping
+//    public ResponseEntity<List<ProdutoResponseRecord>> buscarProdutoPorNome(@RequestParam(required = false) String filtro){
+//        List<ProdutoResponseRecord> produtos = produtoService.buscarProdutoNome(filtro);
+//        if(filtro != null || !filtro.isEmpty()){
+//            String filtroProduto = filtro.toLowerCase();
+//            produtos = produtos.stream()
+//                    .filter(produto -> produto.nomeProduto().toLowerCase().contains(filtroProduto))
+//                    .toList();
+//        }
+//        return ResponseEntity.ok(produtos);
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponseRecord> buscarProdutoPorId (@PathVariable UUID id)
