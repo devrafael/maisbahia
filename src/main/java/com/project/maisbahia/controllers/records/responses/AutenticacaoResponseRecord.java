@@ -1,4 +1,4 @@
-package com.project.maisbahia.controllers.dtos.responses;
+package com.project.maisbahia.controllers.records.responses;
 import java.time.Instant;
 
 

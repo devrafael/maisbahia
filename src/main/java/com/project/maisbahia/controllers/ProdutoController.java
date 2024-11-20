@@ -1,9 +1,8 @@
 package com.project.maisbahia.controllers;
 
-import com.project.maisbahia.controllers.dtos.requests.ProdutoRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.ProdutoResponseRecord;
+import com.project.maisbahia.controllers.records.requests.ProdutoRequestRecord;
+import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord;
 import com.project.maisbahia.services.ProdutoService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

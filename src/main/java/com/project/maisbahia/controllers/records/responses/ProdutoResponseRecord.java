@@ -1,4 +1,4 @@
-package com.project.maisbahia.controllers.dtos.responses;
+package com.project.maisbahia.controllers.records.responses;
 
 import com.project.maisbahia.entities.enums.CategoriaProdutoEnum;
 

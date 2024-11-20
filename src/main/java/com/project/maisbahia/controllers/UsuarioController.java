@@ -1,7 +1,7 @@
 package com.project.maisbahia.controllers;
 
-import com.project.maisbahia.controllers.dtos.requests.UsuarioRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.UsuarioResponseRecord;
+import com.project.maisbahia.controllers.records.requests.UsuarioRequestRecord;
+import com.project.maisbahia.controllers.records.responses.UsuarioResponseRecord;
 import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.services.UsuarioService;
 import jakarta.transaction.Transactional;

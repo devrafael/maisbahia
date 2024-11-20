@@ -2,8 +2,7 @@ package com.project.maisbahia.services.security;
 
 import com.auth0.jwt.exceptions.JWTCreationException;
 
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
-import com.project.maisbahia.entities.usuarios.Perfil;
+import com.project.maisbahia.controllers.records.requests.AutenticacaoRequestRecord;
 import com.project.maisbahia.entities.seguranca.Token;
 import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.repositories.TokenRepository;

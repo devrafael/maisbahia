@@ -1,8 +1,8 @@
 package com.project.maisbahia.services;
 
 
-import com.project.maisbahia.controllers.dtos.requests.ProdutoRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.ProdutoResponseRecord;
+import com.project.maisbahia.controllers.records.requests.ProdutoRequestRecord;
+import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord;
 import com.project.maisbahia.entities.produtos.Produto;
 import com.project.maisbahia.repositories.ProdutoRepository;
 import com.project.maisbahia.services.exceptions.ResourceNotFoundException;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

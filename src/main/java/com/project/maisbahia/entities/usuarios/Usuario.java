@@ -3,7 +3,7 @@ package com.project.maisbahia.entities.usuarios;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
+import com.project.maisbahia.controllers.records.requests.AutenticacaoRequestRecord;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

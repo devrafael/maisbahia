@@ -1,7 +1,7 @@
 package com.project.maisbahia.controllers.security;
 
-import com.project.maisbahia.controllers.dtos.requests.AutenticacaoRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.AutenticacaoResponseRecord;
+import com.project.maisbahia.controllers.records.requests.AutenticacaoRequestRecord;
+import com.project.maisbahia.controllers.records.responses.AutenticacaoResponseRecord;
 import com.project.maisbahia.entities.usuarios.Usuario;
 import com.project.maisbahia.services.UsuarioService;
 import com.project.maisbahia.services.security.TokenService;

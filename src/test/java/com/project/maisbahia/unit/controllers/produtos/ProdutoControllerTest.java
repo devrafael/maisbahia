@@ -1,14 +1,13 @@
 package com.project.maisbahia.unit.controllers.produtos;
 
 import com.project.maisbahia.controllers.ProdutoController;
-import com.project.maisbahia.controllers.dtos.requests.ProdutoRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.ProdutoResponseRecord;
+import com.project.maisbahia.controllers.records.requests.ProdutoRequestRecord;
+import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord;
 import com.project.maisbahia.entities.enums.CategoriaProdutoEnum;
 import com.project.maisbahia.entities.produtos.CategoriaProduto;
 import com.project.maisbahia.services.ProdutoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

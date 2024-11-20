@@ -1,4 +1,4 @@
-package com.project.maisbahia.controllers.dtos.requests;
+package com.project.maisbahia.controllers.records.requests;
 
 import com.project.maisbahia.entities.enums.PerfilEnum;
 

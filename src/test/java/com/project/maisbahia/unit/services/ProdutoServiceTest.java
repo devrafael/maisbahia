@@ -1,7 +1,7 @@
 package com.project.maisbahia.unit.services;
 
-import com.project.maisbahia.controllers.dtos.requests.ProdutoRequestRecord;
-import com.project.maisbahia.controllers.dtos.responses.ProdutoResponseRecord;
+import com.project.maisbahia.controllers.records.requests.ProdutoRequestRecord;
+import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord;
 import com.project.maisbahia.entities.enums.CategoriaProdutoEnum;
 import com.project.maisbahia.entities.produtos.CategoriaProduto;
 import com.project.maisbahia.entities.produtos.Produto;
