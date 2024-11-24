@@ -1,4 +1,4 @@
-console.log('script carregado corretamente!');
+console.log('script menu carregado corretamente!');
 
 // Redirecionamento usando JavaScript
 document.getElementById("inicio").addEventListener("click", function (event) {

@@ -1,38 +1,120 @@
 console.log('script buscar produtos carregado')
-const token = ""
+
+const token = localStorage.getItem("token")
+
 document.getElementById('btnBuscar').addEventListener('click', async function () {
+    
+    
+
     const produtoNome = document.getElementById('inputProduto').value;
 
-    const response = await fetch(`http://localhost:8080/produtos`, {
+    const responseListaProdutos = await fetch(`http://localhost:8080/produtos/buscar?nomeProduto=${produtoNome}`, {
         method: "GET",
         headers: {
-            'Authorization': `Bearer ${token}`, // Inclui o token no cabeçalho Authorization
+            'Authorization': `Bearer ${token}`, 
             'Content-Type': 'application/json'
         },
     });
 
-    // Verifica se a resposta foi bem-sucedida
-    if (!response.ok) {
-        console.error(`Erro: ${response.status} - ${response.statusText}`);
+    if (!responseListaProdutos.ok) {
+        console.error(`Erro: ${responseListaProdutos.status} - ${responseListaProdutos.statusText}`);
         return;
     }
 
     // Converte a resposta para JSON
-    const produtos = await response.json();
+    const ListaProdutos = await responseListaProdutos.json();
 
     // Exibe os produtos no console
-    console.log("Produtos encontrados:", produtos);
+    console.log("Produtos encontrados:", ListaProdutos);
+    
+    
+    criarTabela(ListaProdutos);
 
-    // Imprime todos os produtos no console, ou pode fazer outro tipo de manipulação
-    produtos.forEach(produto => {
-        console.log(`Nome do Produto: ${produto.nomeProduto}`);
-        console.log(`Fabricante: ${produto.fabricante}`);
-        console.log(`Lote: ${produto.lote}`);
-        console.log(`Data de Cadastro: ${produto.dataCadastro}`);
-        console.log(`Data de Fabricação: ${produto.dataFabricacao}`);
-        console.log(`Data de Validade: ${produto.dataValidade}`);
-        console.log(`Quantidade: ${produto.quantidade}`);
-        console.log(`Categoria: ${produto.categoriaNome}`);
-        console.log('-----------------------------------');
-    });
+
+
+
+
+    
 });
+
+
+
+
+function criarTabela(ListaProdutos) {
+    const tabelaContainer = document.getElementById("tabela-container");
+    tabelaContainer.innerHTML = ""; 
+    
+    const tabela = document.createElement("table");
+    tabela.classList.add("table", "table-striped", "table-bordered", "text-center")
+
+    const thead = document.createElement("thead");
+    const trCabeçalho = document.createElement("tr");
+
+    const tituloCampos = ["ID", "Nome do Produto"];
+    tituloCampos.forEach(titulo => {
+        const th = document.createElement("th");
+        th.textContent = titulo;
+        trCabeçalho.appendChild(th);
+    });
+
+    thead.appendChild(trCabeçalho);
+    tabela.appendChild(thead);
+
+  
+    const tbody = document.createElement("tbody");
+
+    ListaProdutos.forEach((produto, index) => {
+        const trCorpo = document.createElement("tr");
+        trCorpo.dataset.tdNome = produto;
+
+        const tdId = document.createElement("td");
+        tdId.textContent = index + 1; 
+        trCorpo.appendChild(tdId);
+
+        const tdNome = document.createElement("td");
+        tdNome.textContent = produto;
+        trCorpo.appendChild(tdNome);
+
+        
+         // Evento de clique na linha (tr)
+         trCorpo.addEventListener("click", async function() {
+            const nomeProduto = this.dataset.tdNome;
+            console.log("nomeProduto: ", nomeProduto)
+            detalhesProduto(nomeProduto)
+
+        });
+
+        tbody.appendChild(trCorpo);
+    });
+
+    tabela.appendChild(tbody);
+    
+    tabelaContainer.appendChild(tabela);
+}
+
+
+async function detalhesProduto(nomeProduto){
+    const responseDetalhesProduto = await fetch(`http://localhost:8080/produtos/buscar/detalhes?nomeProduto=${nomeProduto}`, {
+        method: "GET",
+        headers: {
+            'Authorization': `Bearer ${token}`, 
+            'Content-Type': 'application/json'
+        },
+    });
+
+    if (!responseDetalhesProduto.ok) {
+        console.error(`Erro: ${responseDetalhesProduto.status} - ${responseDetalhesProduto.statusText}`);
+        return;
+    }
+
+    // Converte a resposta para JSON
+    const ListaDetalhesProduto = await responseDetalhesProduto.json();
+
+    // Exibe os produtos no console
+    console.log("Produtos encontrados:", ListaDetalhesProduto);
+    
+    window.location.href = `detalhesProduto.html?nomeProduto=${nomeProduto}`;
+
+}
+
+

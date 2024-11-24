@@ -43,7 +43,7 @@ public class ProdutoController
         return ResponseEntity.ok(nomes);
     }
 
-    @GetMapping("/detalhes")
+    @GetMapping("/buscar/detalhes")
     public ResponseEntity<List<ProdutoResponseRecord>> detalhesProduto(@RequestParam String nomeProduto){
         List<ProdutoResponseRecord> produtos = produtoService.detalhesProduto(nomeProduto);
         return ResponseEntity.ok(produtos);
