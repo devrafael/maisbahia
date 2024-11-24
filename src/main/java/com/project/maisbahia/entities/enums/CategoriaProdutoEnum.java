@@ -6,12 +6,12 @@ import lombok.Getter;
 public enum CategoriaProdutoEnum
 {
     MASSA(1L, "MASSA"),
-    GRAOS(2L, "GRAO"),
+    GRAO(2L, "GRAO"),
     HIGIENE_PESSOAL(3L, "HIGIENE_PESSOAL"),
     LIMPEZA(4L, "LIMPEZA"),
     ACOUGUE(5L, "ACOUGUE"),
-    FRUTAS(6L, "FRUTA"),
-    LEGUMES(7L, "LEGUME");
+    FRUTA(6L, "FRUTA"),
+    LEGUME(7L, "LEGUME");
 
     private final Long id;
     private final String nomeCategoria;

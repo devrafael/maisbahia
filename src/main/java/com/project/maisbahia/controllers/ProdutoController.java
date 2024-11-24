@@ -2,6 +2,7 @@ package com.project.maisbahia.controllers;
 
 import com.project.maisbahia.controllers.records.requests.ProdutoRequestRecord;
 import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord;
+import com.project.maisbahia.entities.produtos.CategoriaProduto;
 import com.project.maisbahia.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -18,6 +20,7 @@ public class ProdutoController
 {
     @Autowired
     private ProdutoService produtoService;
+
 
     @PostMapping
     @PreAuthorize("hasAuthority('SCOPE_Gerente')")
@@ -34,17 +37,17 @@ public class ProdutoController
         return ResponseEntity.ok(produtos);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<ProdutoResponseRecord>> buscarProdutoPorNome(@RequestParam(required = false) String filtro){
-//        List<ProdutoResponseRecord> produtos = produtoService.buscarProdutoNome(filtro);
-//        if(filtro != null || !filtro.isEmpty()){
-//            String filtroProduto = filtro.toLowerCase();
-//            produtos = produtos.stream()
-//                    .filter(produto -> produto.nomeProduto().toLowerCase().contains(filtroProduto))
-//                    .toList();
-//        }
-//        return ResponseEntity.ok(produtos);
-//    }
+    @GetMapping("/buscar")
+    public ResponseEntity<List<String>> fitro(@RequestParam String nomeProduto) {
+        List<String> nomes = produtoService.filtro(nomeProduto);
+        return ResponseEntity.ok(nomes);
+    }
+
+    @GetMapping("/detalhes")
+    public ResponseEntity<List<ProdutoResponseRecord>> detalhesProduto(@RequestParam String nomeProduto){
+        List<ProdutoResponseRecord> produtos = produtoService.detalhesProduto(nomeProduto);
+        return ResponseEntity.ok(produtos);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponseRecord> buscarProdutoPorId (@PathVariable UUID id)
@@ -67,5 +70,14 @@ public class ProdutoController
     {
         produtoService.exluirProduto(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/categorias")
+    public ResponseEntity<List<String>> listarCategorias(){
+        List<CategoriaProduto> categorias = produtoService.listarCategorias();
+        List<String> nomesCategorias = categorias.stream()
+                .map(categoria -> categoria.getCategoriaEnum().getNomeCategoria()) // Pega o nome da categoria de cada enum
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(nomesCategorias);
     }
 }
