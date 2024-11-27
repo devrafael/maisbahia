@@ -3,15 +3,15 @@ console.log('script buscar produtos carregado')
 const token = localStorage.getItem("token")
 
 document.getElementById('btnBuscar').addEventListener('click', async function () {
-    
-    
+
+
 
     const produtoNome = document.getElementById('inputProduto').value;
 
     const responseListaProdutos = await fetch(`http://localhost:8080/produtos/buscar?nomeProduto=${produtoNome}`, {
         method: "GET",
         headers: {
-            'Authorization': `Bearer ${token}`, 
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
     });
@@ -26,15 +26,15 @@ document.getElementById('btnBuscar').addEventListener('click', async function ()
 
     // Exibe os produtos no console
     console.log("Produtos encontrados:", ListaProdutos);
-    
-    
+
+
     criarTabela(ListaProdutos);
 
 
 
 
 
-    
+
 });
 
 
@@ -42,8 +42,8 @@ document.getElementById('btnBuscar').addEventListener('click', async function ()
 
 function criarTabela(ListaProdutos) {
     const tabelaContainer = document.getElementById("tabela-container");
-    tabelaContainer.innerHTML = ""; 
-    
+    tabelaContainer.innerHTML = "";
+
     const tabela = document.createElement("table");
     tabela.classList.add("table", "table-striped", "table-bordered", "text-center")
 
@@ -60,7 +60,7 @@ function criarTabela(ListaProdutos) {
     thead.appendChild(trCabeçalho);
     tabela.appendChild(thead);
 
-  
+
     const tbody = document.createElement("tbody");
 
     ListaProdutos.forEach((produto, index) => {
@@ -68,16 +68,16 @@ function criarTabela(ListaProdutos) {
         trCorpo.dataset.tdNome = produto;
 
         const tdId = document.createElement("td");
-        tdId.textContent = index + 1; 
+        tdId.textContent = index + 1;
         trCorpo.appendChild(tdId);
 
         const tdNome = document.createElement("td");
         tdNome.textContent = produto;
         trCorpo.appendChild(tdNome);
 
-        
-         // Evento de clique na linha (tr)
-         trCorpo.addEventListener("click", async function() {
+
+        // Evento de clique na linha (tr)
+        trCorpo.addEventListener("click", async function () {
             const nomeProduto = this.dataset.tdNome;
             console.log("nomeProduto: ", nomeProduto)
             detalhesProduto(nomeProduto)
@@ -88,16 +88,16 @@ function criarTabela(ListaProdutos) {
     });
 
     tabela.appendChild(tbody);
-    
+
     tabelaContainer.appendChild(tabela);
 }
 
 
-async function detalhesProduto(nomeProduto){
+async function detalhesProduto(nomeProduto) {
     const responseDetalhesProduto = await fetch(`http://localhost:8080/produtos/buscar/detalhes?nomeProduto=${nomeProduto}`, {
         method: "GET",
         headers: {
-            'Authorization': `Bearer ${token}`, 
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         },
     });
@@ -108,13 +108,15 @@ async function detalhesProduto(nomeProduto){
     }
 
     // Converte a resposta para JSON
-    const ListaDetalhesProduto = await responseDetalhesProduto.json();
+    const listaDetalhesProduto = await responseDetalhesProduto.json();
 
     // Exibe os produtos no console
-    console.log("Produtos encontrados:", ListaDetalhesProduto);
+    console.log("Detalhes dos Produtos encontrados:", listaDetalhesProduto);
     
     window.location.href = `detalhesProduto.html?nomeProduto=${nomeProduto}`;
+    localStorage.setItem("produtos", JSON.stringify(listaDetalhesProduto));
 
+    console.log('console depois de ser redirecionado')
+   
 }
-
 
