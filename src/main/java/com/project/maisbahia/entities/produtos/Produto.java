@@ -15,7 +15,7 @@ import java.util.UUID;
 @Table(name = "tb_produtos")
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID idProduto;
 
     @ManyToOne(cascade = CascadeType.PERSIST)

@@ -5,6 +5,7 @@ import com.project.maisbahia.controllers.records.responses.ProdutoResponseRecord
 import com.project.maisbahia.entities.produtos.CategoriaProduto;
 import com.project.maisbahia.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,14 @@ public class ProdutoController
         return ResponseEntity.ok(produtos);
     }
 
+
     @GetMapping("/buscar")
-    public ResponseEntity<List<String>> fitro(@RequestParam String nomeProduto) {
-        List<String> nomes = produtoService.filtro(nomeProduto);
+    public ResponseEntity<Page<String>> filtro(
+            @RequestParam String nomeProduto,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Page<String> nomes = produtoService.filtro(nomeProduto, page, size);
         return ResponseEntity.ok(nomes);
     }
 
@@ -56,11 +62,11 @@ public class ProdutoController
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{nomeProduto}")
     @PreAuthorize("hasAuthority('SCOPE_Gerente')")
-    public ResponseEntity<ProdutoResponseRecord> atualizarProduto (@PathVariable UUID id, @RequestBody ProdutoRequestRecord request)
+    public ResponseEntity<ProdutoResponseRecord> atualizarProduto (@PathVariable String nomeProduto, @RequestBody ProdutoRequestRecord request)
     {
-        ProdutoResponseRecord response = produtoService.atualizarProduto(id, request);
+        ProdutoResponseRecord response = produtoService.atualizarProduto(nomeProduto, request);
         return ResponseEntity.ok(response);
     }
 

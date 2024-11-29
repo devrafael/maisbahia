@@ -8,10 +8,6 @@ document.getElementById("inicio").addEventListener("click", function (event) {
 
 document.getElementById("buscar").addEventListener("click", function (event) {
   event.preventDefault(); // Evita o comportamento padrão
-  window.location.href = "buscar.html"; // URL de destino
+  window.location.href = "buscarProdutos.html"; // URL de destino
 });
 
-document.getElementById("cadastrar").addEventListener("click", function (event) {
-  event.preventDefault(); // Evita o comportamento padrão
-  window.location.href = "pagina-cadastrar.html"; // URL de destino
-});

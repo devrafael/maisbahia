@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/tela02.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Crie sua Conta - Mais Bahia</title>
 
 </head>
@@ -26,33 +26,35 @@
             <p>Preencha seus dados</p>
 
             <!-- Formulário -->
-            <form>
-                <div class="form-group">
-                    <i>👤</i>
-                    <input type="text" placeholder="Nome" required>
-                </div>
-                <div class="form-group">
-                    <i>🆔</i>
-                    <input type="text" placeholder="CPF" required>
-                </div>
-                <div class="form-group">
-                    <i>💼</i>
-                    <input type="text" placeholder="Cargo" required>
-                </div>
-                <div class="form-group">
-                    <i>📅</i>
-                    <input type="date" placeholder="Data de nascimento" required>
-                </div>
-                <div class="form-group">
-                    <i>📧</i>
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <i>🔒</i>
-                    <input type="password" placeholder="Senha" required>
-                </div>
-                <button type="submit" class="btn-cadastrar">CADASTRAR</button>
-            </form>
+            <div id="container-form-cadastro">
+                <form id="form-cadastro">
+                    <div class="form-group">
+                        <img src="../img/person-add-outline.svg" style="width: 20px; height: 20px;" alt="icone nome">
+                        <input type="text" placeholder="Nome" required>
+                    </div>
+                    <div class="form-group">
+                        <img src="../img/person-add-outline.svg" style="width: 20px; height: 20px;" alt="icone cpf">
+                        <input type="text" placeholder="CPF" required>
+                    </div>
+                    <div class="form-group">
+                        <img src="../img/person-add-outline.svg" style="width: 20px; height: 20px;" alt="icone cargo">
+                        <input type="text" placeholder="Cargo" required>
+                    </div>
+                    <div class="form-group">
+                        <img src="../img/calendar-outline.svg" style="width: 20px; height: 20px;" alt="icone data">
+                        <input type="date" placeholder="Data de nascimento" required>
+                    </div>
+                    <div class="form-group">
+                        <img src="../img/mail-outline.svg" style="width: 20px; height: 20px;" alt="icone email">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <img src="../img/lock-closed-outline.svg" style="width: 20px; height: 20px;" alt="icone senha">
+                        <input type="password" placeholder="Senha" required>
+                    </div>
+                    <button type="submit" class="btn-cadastrar">CADASTRAR</button>
+                </form>
+            </div>
         </div>
     </div>
 

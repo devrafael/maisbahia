@@ -2,13 +2,26 @@ console.log('script buscar produtos carregado')
 
 const token = localStorage.getItem("token")
 
+let paginaAtual = 0;
+const tamanhoPagina = 10;  
+let totalDePaginas = 0;
+
 document.getElementById('btnBuscar').addEventListener('click', async function () {
 
-
-
     const produtoNome = document.getElementById('inputProduto').value;
+    if(produtoNome == ""){
+        console.log("produtoNome vazio")
+    }
+    
 
-    const responseListaProdutos = await fetch(`http://localhost:8080/produtos/buscar?nomeProduto=${produtoNome}`, {
+   await buscarProdutos(produtoNome, paginaAtual, tamanhoPagina)
+
+
+
+});
+
+async function buscarProdutos(produtoNome, paginaAtual, tamanhoPagina){
+    const responseListaProdutos = await fetch(`http://localhost:8080/produtos/buscar?nomeProduto=${produtoNome}&page=${paginaAtual}&size=${tamanhoPagina}`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -21,28 +34,22 @@ document.getElementById('btnBuscar').addEventListener('click', async function ()
         return;
     }
 
-    // Converte a resposta para JSON
     const ListaProdutos = await responseListaProdutos.json();
+    totalDePaginas = ListaProdutos.totalPages;
 
-    // Exibe os produtos no console
+
     console.log("Produtos encontrados:", ListaProdutos);
 
+    criarTabela(ListaProdutos.content);
 
-    criarTabela(ListaProdutos);
-
-
-
-
-
-
-});
-
-
+    criarBotoesNavegacao();
+}
 
 
 function criarTabela(ListaProdutos) {
     const tabelaContainer = document.getElementById("tabela-container");
     tabelaContainer.innerHTML = "";
+    
 
     const tabela = document.createElement("table");
     tabela.classList.add("table", "table-striped", "table-bordered", "text-center")
@@ -68,15 +75,14 @@ function criarTabela(ListaProdutos) {
         trCorpo.dataset.tdNome = produto;
 
         const tdId = document.createElement("td");
-        tdId.textContent = index + 1;
+        tdId.textContent = index + 1 + paginaAtual * tamanhoPagina;
+        tdId.style.width = '100px'; 
         trCorpo.appendChild(tdId);
 
         const tdNome = document.createElement("td");
         tdNome.textContent = produto;
         trCorpo.appendChild(tdNome);
 
-
-        // Evento de clique na linha (tr)
         trCorpo.addEventListener("click", async function () {
             const nomeProduto = this.dataset.tdNome;
             console.log("nomeProduto: ", nomeProduto)
@@ -88,8 +94,9 @@ function criarTabela(ListaProdutos) {
     });
 
     tabela.appendChild(tbody);
-
+    tabela.style.cursor = "pointer"
     tabelaContainer.appendChild(tabela);
+    
 }
 
 
@@ -107,16 +114,51 @@ async function detalhesProduto(nomeProduto) {
         return;
     }
 
-    // Converte a resposta para JSON
     const listaDetalhesProduto = await responseDetalhesProduto.json();
 
-    // Exibe os produtos no console
     console.log("Detalhes dos Produtos encontrados:", listaDetalhesProduto);
     
     window.location.href = `detalhesProduto.html?nomeProduto=${nomeProduto}`;
     localStorage.setItem("produtos", JSON.stringify(listaDetalhesProduto));
-
-    console.log('console depois de ser redirecionado')
    
 }
 
+function criarBotoesNavegacao(){
+    const tabelaContainer = document.getElementById("tabela-container");
+
+    const navContainer = document.createElement("div");
+    navContainer.classList.add("d-flex", "justify-content-between", "mt-3");
+
+    const btnVoltar = document.createElement("button");
+    btnVoltar.classList.add("btn", "btn-primary");
+    btnVoltar.style.width = "10%";
+    btnVoltar.style.fontSize = "20px";
+    btnVoltar.style.height = "10%";
+    btnVoltar.textContent = "<";
+    btnVoltar.disabled = paginaAtual === 0;
+    btnVoltar.addEventListener('click', function () {
+        if (paginaAtual > 0) {
+            paginaAtual--;
+            buscarProdutos(document.getElementById('inputProduto').value, paginaAtual, tamanhoPagina);
+        }
+    });
+
+    const btnProximo = document.createElement("button");
+    btnProximo.classList.add("btn", "btn-primary");
+    btnProximo.style.width = "10%";
+    btnProximo.style.fontSize = "20px"
+    btnProximo.style.height = "10%"
+    btnProximo.textContent = ">";
+    btnProximo.disabled = paginaAtual === totalDePaginas - 1;
+    btnProximo.addEventListener('click', function () {
+        if (paginaAtual < totalDePaginas - 1) {
+            paginaAtual++;
+            buscarProdutos(document.getElementById('inputProduto').value, paginaAtual, tamanhoPagina);
+        }
+    });
+
+    navContainer.appendChild(btnVoltar);
+    navContainer.appendChild(btnProximo);
+
+    tabelaContainer.appendChild(navContainer);
+}

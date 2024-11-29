@@ -2,31 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", serif;
 }
 
-body,
-html {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 
 .container {
+    height: 100vh;
     display: flex;
-    width: 80%;
-    height: 80vh;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
     overflow: hidden;
 }
 
 .left-panel {
     background-color: #4E2A8E;
     color: white;
-    width: 30%;
+    width: 20%;
     padding: 40px 20px;
     display: flex;
     flex-direction: column;
@@ -42,7 +33,7 @@ html {
 }
 
 .left-panel p {
-    font-size: 16px;
+    font-size: 24px;
     margin-bottom: 30px;
 }
 
@@ -64,17 +55,18 @@ html {
 
 .right-panel {
     background-color: #FFFFFF;
-    width: 70%;
+    width: 100%;
     padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
 }
 
 .right-panel h2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #333333;
+    font-size: 64px;
+    font-weight: 700;
+    color: #000000;
     margin-bottom: 10px;
 }
 
@@ -89,7 +81,9 @@ html {
     background-color: #F5F5F5;
     padding: 10px;
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
+    width: 540px;
+    height: 45px;
 }
 
 .form-group input {
@@ -99,6 +93,7 @@ html {
     padding-left: 10px;
     font-size: 16px;
     flex: 1;
+    font-family: "Poppins", serif;
 }
 
 .form-group i {
@@ -110,15 +105,27 @@ html {
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 50px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    width: 100%;
+    width: 50%;
     margin-top: 20px;
+    height: 55px;
 }
 
 .btn-cadastrar:hover {
-    background-color: #3b2070;
+    background-color:  #6f40cc;
     transition: 0.3s;
+}
+
+#container-form-cadastro{
+    display: flex;
+    justify-content: center;
+
+}
+
+
+#form-cadastro{
+    margin: 0 auto;
 }

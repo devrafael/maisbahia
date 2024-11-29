@@ -10,6 +10,9 @@ import com.project.maisbahia.repositories.CategoriaRepository;
 import com.project.maisbahia.repositories.ProdutoRepository;
 import com.project.maisbahia.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -62,9 +65,11 @@ public List<CategoriaProduto> listarCategorias(){
         Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
         return mapToResponseRecord(produto);
     }
+    
 
-    public List<String> filtro(String nomeProduto) {
-        return produtoRepository.findDistinctByNomeProdutoContaining(nomeProduto);
+    public Page<String> filtro(String nomeProduto, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return produtoRepository.findDistinctByNomeProdutoContaining(nomeProduto, pageable);
     }
 
     public List<ProdutoResponseRecord> detalhesProduto(String nomeProduto){
@@ -84,19 +89,25 @@ public List<CategoriaProduto> listarCategorias(){
                 .collect(Collectors.toList());
     }
 
-    public ProdutoResponseRecord atualizarProduto(UUID id, ProdutoRequestRecord request)
+    public ProdutoResponseRecord atualizarProduto(String nomeProduto, ProdutoRequestRecord request)
     {
-        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
 
-        produto.setNomeProduto(request.nomeProduto());
-        produto.setQuantidade(request.quantidade());
-        produto.setLote(request.lote());
-        produto.setDataValidade(request.dataValidade());
-        produto.setDataFabricacao(request.dataFabricacao());
-        produto.setFabricante(request.fabricante());
 
-        produto = produtoRepository.save(produto);
-        return mapToResponseRecord(produto);
+//        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Produto não encontrado"));
+          List<Produto> produtos = produtoRepository.findByNomeProduto(nomeProduto);
+
+        if (produtos.isEmpty()) {
+            throw new ResourceNotFoundException("Produto com nome " + nomeProduto + " não encontrado.");
+        }
+
+            for (Produto produto : produtos){
+                produto.setNomeProduto(request.nomeProduto());
+
+                produtoRepository.save(produto);
+            }
+
+
+        return mapToResponseRecord((Produto) produtos);
     }
 
     public void exluirProduto(UUID id)

@@ -9,11 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Arquivo CSS externo -->
     <link rel="stylesheet" href="../css/tela08.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/detalhes.js" defer></script>
-    <script src="../js/menu.js" defer></script>
+    <script src="../js/menuLateral.js" defer></script>
 
 
 </head>
@@ -22,30 +22,11 @@
 
     <h1>Detalhes do Produto</h1>
 
+    
     <div class="container mt-5 " id="tabela-container2">
-
-        <!-- <table class="table table-striped table-bordered">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Fabricante</th>
-                    <th>Data Validade</th>
-                    <th>Lote</th>
-                    <th>Quantidade</th>
-                    <th>Categoria</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <td>
-                <button class="btn btn-primary btn-sm"><img src="../img/icons8-editar-24.png"
-                        alt="Excluir"></button>
-                <button class="btn btn-danger btn-sm"><img src="../img/icons8-lixo-24.png"
-                        alt="Excluir"></button>
-            </td>
-        </table> -->
+      <div id="nomeProduto">
+      </div>
     </div>
-
 
     <div class="menu-lateral">
         <h2><span class="mais">MAIS</span><span class="bahia">BAHIA</span></h2>
@@ -85,6 +66,47 @@
         </nav>
       </div>
 
+    <!-- Modal Editar-->
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="modal-content-editar">
+                <form action="">
+                  <!-- Cabeçalho do Modal -->
+                  <div class="modal-header" id="modal-header-editar">
+                      <h5 class="modal-title" id="meuModalLabel">Editar</h5>
+                  </div>
+                  <!-- Corpo do Modal -->
+                  <div class="modal-body" id="modal-body-editar">
+                    <p>Nome do Produto</p>
+                      <input type="text" placeholder="Nome do produto" id="inputEditar" required>
+                  </div>
+                  <!-- Rodapé do Modal -->
+                  <div class="modal-footer" id="modal-footer-btn">
+                      <button type="submit" class="btn btn-primary" id="btn-editar"  data-bs-dismiss="modal" autocomplete="off">EDITAR</button>
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal">CANCELAR</button>
+                  
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modal Excluir-->
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" id="modal-content-excluir">
+              
+              <div class="modal-body" id="modal-body-excluir">
+                  Confirmar exclusão?
+              </div>
+              <div class="modal-footer" id="modal-footer-btn">
+                  <button type="button" class="btn btn-primary" id="btn-confirmar" data-bs-dismiss="modal">CONFIRMAR</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">CANCELAR</button>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
 
 </body>
 

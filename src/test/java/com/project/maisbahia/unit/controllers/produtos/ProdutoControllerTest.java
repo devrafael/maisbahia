@@ -113,7 +113,7 @@ public class ProdutoControllerTest {
     @Test
     void testAtualizarProduto() throws Exception {
         UUID id = produtoResponse.idProduto();
-        when(produtoService.atualizarProduto(any(UUID.class), any(ProdutoRequestRecord.class)))
+        when(produtoService.atualizarProduto(any(String.class), any(ProdutoRequestRecord.class)))
                 .thenReturn(produtoResponse);
 
         mockMvc.perform(put("/produtos/" + id)

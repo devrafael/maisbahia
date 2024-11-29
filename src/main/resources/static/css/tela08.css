@@ -38,12 +38,19 @@ h1 {
     border: 1px solid white;
 }
 
-.btn-primary,
-.btn-danger {
+.btn-primary {
     background-color: #4F359B;
     border-color: #4F359B;
+    --bs-btn-bg:  #7a5bd6;
+    --bs-btn-border-color: #7a5bd6;
+    --bs-btn-hover-bg:#7a5bd6;
+    --bs-btn-active-bg: #7a5bd6;
 }
 
+.btn-primary:hover {
+    background-color: #7a5bd6;
+
+}
 
 .menu-lateral {
     position: fixed;
@@ -55,6 +62,10 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    height: 830px;
+    -webkit-box-shadow: 0px 10px 45px 5px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 10px 45px 5px rgba(0,0,0,0.5);
+    box-shadow: 0px 10px 45px 5px rgba(0,0,0,0.5);
 }
 
 .menu-lateral h2 {
@@ -67,6 +78,7 @@ h1 {
     color: white;
     border-radius: 8px 8px 0 0;
     font-family: "Poppins", serif;
+    
 }
 
 .menu-lateral h2 .mais {
@@ -80,7 +92,7 @@ h1 {
 .menu-item {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 20px 20px;
     text-decoration: none;
     color: #ffffff;
     text-align: right;
@@ -96,8 +108,7 @@ h1 {
 .menu-item img {
     width: 24px;
     height: 24px;
-    margin-right: 10%;
-    margin-left: 13%;
+
 }
 
 .menu-item a {
@@ -108,4 +119,76 @@ h1 {
 
 .menu-lateral nav {
     padding-bottom: 25%;
+}
+
+#modal-content-editar{
+    height: 400px;
+    border-radius: 30px;
+}
+
+#modal-header-editar{
+    justify-content: center;
+    margin-top: 60px;
+
+}
+
+#modal-body-editar{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+#modal-body-editar > p{
+   font-weight: 500;
+   font-size: 24px;
+}
+
+#modal-body-editar > input{
+    background-color: #f4f3f3;
+    border: none;
+    height: 40px;
+    border-radius: 50px;
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 20px;
+}
+
+#modal-body-editar > input::placeholder{
+
+    padding-left: 10px;
+    
+}
+
+#meuModalLabel{
+    font-weight: 700;
+    font-size:  40px;
+}
+
+
+
+#modal-content-excluir{
+    height: 250px;
+    border-radius: 30px;
+}
+
+#modal-body-excluir{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+#modal-footer-btn{
+    justify-content: space-evenly;
+}
+
+#nomeProduto{
+    text-align: center;
+    font-family: "Poppins", serif;
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }

@@ -125,7 +125,7 @@ class ProdutoServiceTest {
         when(produtoRepository.findById(produto.getIdProduto())).thenReturn(Optional.of(produto));
         when(produtoRepository.save(any(Produto.class))).thenReturn(produto);
 
-        ProdutoResponseRecord response = produtoService.atualizarProduto(produto.getIdProduto(), produtoRequest);
+        ProdutoResponseRecord response = produtoService.atualizarProduto(produto.getNomeProduto(), produtoRequest);
 
         assertNotNull(response, "A resposta não deveria ser nula.");
         assertEquals("Macarrão", response.nomeProduto(), "O nome do produto deveria ser 'Macarrão'.");

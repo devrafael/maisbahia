@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/tela03.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Acessar - Mais Bahia</title>
 
 </head>
@@ -20,17 +20,19 @@
     <h2>Acessar</h2>
 
     <!-- Formulário de login -->
-    <form id="loginForm">
-        <div class="form-group">
-            <i>📧</i>
-            <input type="email" id="email" placeholder="E-mail" required>
-        </div>
-        <div class="form-group">
-            <i>🔒</i>
-            <input type="password" id="senha" placeholder="Senha" required>
-        </div>
-        <button type="submit" class="btn-entrar" id="loginButton">ENTRAR</button>
-    </form>
+    <div id = "container-form-login">
+        <form id="loginForm">
+            <div class="form-group">
+                <img src="../img/mail-outline.svg" style="width: 20px; height: 20px;" alt="icone email">
+                <input type="email" id="email" placeholder="E-mail" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <img src="../img/lock-closed-outline.svg" style="width: 20px; height: 20px;" alt="icone email">
+                <input type="password" id="senha" placeholder="Senha" required>
+            </div>
+            <button type="submit" class="btn-entrar" id="loginButton">ENTRAR</button>
+        </form>
+    </div>
 
     <!-- Link de esqueci minha senha -->
     <a href="#" class="forgot-password">Esqueci minha senha.</a>

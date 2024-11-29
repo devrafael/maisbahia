@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
 }
 
 body,
@@ -11,22 +10,24 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4E2A8E;
+    background-color: #4F359B;
+    font-family: "Poppins", serif;
 }
 
 .login-card {
     background-color: white;
-    width: 300px;
+    width: 500px;
+    height: 400px;
     padding: 40px 20px;
-    border-radius: 10px;
+    border-radius: 5%;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
 
 .login-card h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333333;
+    font-size: 40px;
+    font-weight: 700;
+    color: #000000;
     margin-bottom: 20px;
 }
 
@@ -52,7 +53,8 @@ html {
     background-color: #F5F5F5;
     padding: 10px;
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    height: 45px;
 }
 
 .form-group input {
@@ -73,16 +75,18 @@ html {
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: bold;
+    border-radius: 30px;
+    font-size: 20px;
+    font-weight: 700;
     cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
+    width: 70%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    height: 50px;
 }
 
 .btn-entrar:hover {
-    background-color: #3b2070;
+    background-color: #6f40cc;
     transition: 0.3s;
 }
 
@@ -95,4 +99,12 @@ html {
 
 .forgot-password:hover {
     color: #333333;
+}
+
+#container-form-login{
+    margin: 0px 60px
+}
+
+input::placeholder{
+    opacity: 0.6;
 }

@@ -25,7 +25,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/admin")
-    //@PreAuthorize("hasAuthority('SCOPE_GERENTE')")
+    //@PreAuthorize("hasAuthority('SCOPE_Gerente')")
     public ResponseEntity<List<UsuarioResponseRecord>> buscarTodosUsuarios(){
         List<Usuario> listaUsuarios = usuarioService.buscarUsuarios();
         List<UsuarioResponseRecord> listaUsuarioResponsRecords = new ArrayList<>();
